@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<body>
+ {% block content %}
+  <h1>Event list</h1>
+	<table>
+		{% for event in event_list %}
+			<tr>
+				<td><a href="{% url "event" hidden_index=event.pk %}">{{ event.name }}</a></td>
+                <td>{{ event.start_time }} {{ event.finish_time }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+
+	<div>
+		<a href="{% url "add_event" %}">Add event</a>
+	</div>
+	<div pagination>
+		<a href="{% url "event_list" %}?page=1">First</a>
+		{% if page_obj.has_previous  %}
+			<a href="{% url "event_list" %}?page={{ page_obj.previous_page_number}}">Previous</a>
+		{% endif %}
+		{% for pid in paginator.page_range %}
+			{% if page_obj.number != pid %}
+				<a href="{% url "event_list" %}?page={{ pid }}">{{pid}}</a>
+			{% else %}
+				{{ pid }}
+			{% endif %}
+		{% endfor %}
+		{% if page_obj.has_next %}
+			<a href="{% url "event_list" %}?page={{ page_obj.next_page_number }}">Next</a>
+		{% endif %}
+		<a href="{% url "event_list" %}?page={{ paginator.num_pages }}">Last</a>
+	</div>
+    {% endblock %}
+</body>
