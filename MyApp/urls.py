@@ -14,8 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.conf.urls import include
 from django.contrib import admin
 from Main_Static import views
+import registration.views
+from registration.forms import RegistrationFormUniqueEmail
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^members/(\d+)/$', views.user_detail),
@@ -29,5 +32,8 @@ urlpatterns = [
     url(r'^edit_event/(?P<hidden_index>\d+)/$', views.edit_event.as_view(), name ="edit_event"),
     url(r'^add_member/(?P<hidden_index>\d+)/$', views.add_member.as_view(), name ="add_member"),
     url(r'^home/',views.Home_render),
+    url(r'^add_user/$',views.add_user.as_view(),name = "add_user"),
+    url(r'^register/$', registration.views.RegistrationView.as_view, {'form': RegistrationFormUniqueEmail}, name='registration_register'),
+    url(r'^accounts/', include('registration.urls')),
 
 ]

@@ -1,0 +1,3 @@
+To register follow this link
+{{ site }}/accounts/activate/{{ activation_key }}/
+Thank you!

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-
+#import Main_Static.models
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +24,7 @@ SECRET_KEY = '@7$ob$n5#ytu&$(iy5cb8z*e(z5%nxi%4%k7la7ypy$ltx=nb@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+#EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 ALLOWED_HOSTS = []
 
 
@@ -39,8 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Main_Static',
     'MyApp',
+    'registration'
 ]
 
+#AUTH_USER_MODEL = 'Main_Static.myuser'
+ACCOUNT_ACTIVATION_DAYS = 2
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@duhin.ru'
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -112,9 +123,8 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
-USE_L10N = True
-
+USE_L10N = False
+TIME_FORMAT='H:i'
 USE_TZ = True
 
 #My Constants

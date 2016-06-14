@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from Main_Static.event_creation_logic import find_time
+
 class myuser(models.Model):
     user = models.ForeignKey(User)
     start_work = models.TimeField()
     finish_work = models.TimeField()
     birth = models.DateField()
- #   test = models.DateField()
-  #  free_segments=[]
+    email=models.EmailField()
+    free_segments=[]
    # particip_events=models.CharField(max_length=1000)  #Dangerous const
 
 class arr_el(models.Model):
@@ -30,6 +30,7 @@ class event(models.Model):
     name=models.CharField(max_length=127)
     is_impossible=models.CharField(max_length=127)
     members=models.CharField(max_length=1000) #Dangerous const
+    date=models.DateField()
     class Meta:
       verbose_name = "Event_description"
 

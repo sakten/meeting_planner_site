@@ -10,9 +10,26 @@ def get_key(arr_el):
 
 def parse(timestr):
     ry=[]
-    timestr.replace('"',':')
-    ry=timestr.split(':')
+    str(timestr).replace('"',':')
+    ry=str(timestr).split(':')
     return int(ry[0])*3600+int(ry[1])*60+int(ry[2])
+
+def int_seconds_to_timest(sec):
+    if (sec/3600)<10:
+        h='0'+str((sec/3600).__round__())
+    else :
+        h= (sec/3600).__round__()
+
+    if (sec%3600/60)<10:
+        m='0'+str((sec%3600/60).__round__())
+    else :
+        m= (sec%3600/60).__round__()
+
+    if (sec%60)<10:
+        s='0'+str((sec%60).__round__())
+    else :
+        s= (sec%60).__round__()
+    return datetime.datetime.strptime(  str(h) +':' + str(m) + ':' +str(s) , '%H:%M:%S').time()
 
 def find_time(members_string, leng): #В порядке теста сначала вернём имена пользователей
     index_arr=members_string.split("#")
@@ -37,8 +54,6 @@ def find_time(members_string, leng): #В порядке теста сначал�
     result_start=models.TimeField
     result_start="00:00:00"
     members_number= len(fin_arr) / 2 #Криво, косо, переделать
-    print (members_number)
-    print("oilseed")
     for i in fin_arr:
         if (i.start_or_finish  == False) :
             count+=1
@@ -48,26 +63,5 @@ def find_time(members_string, leng): #В порядке теста сначал�
             if (count == members_number):
                 if (parse(str(i.time)) - parse(str(store_start)))>=parse(str(leng)) :
                     result_start=store_start
-                    print(result_start)
             count-=1;
-            print( result_start)
-    return result_start
-
-
-
-    #короче предположим что я разобрался
-     #cтраница 110 книжки модификаторы filter
-#fin_arr массив, который мы осортируем по времени, в котором элементы содержат следующее : начало это или конец временного отрезка, кому принадлежит отрезок, pyfxtybt dhtv
-# for i in fin_arr :
-#
-#
-#На самом деле на этом этапе на плевать кому принадлежит время, так как всё равно нужно чтобы участвовали все
-#
-#
-#
-#
-#
-#
-#
-
-
+    return result_start, int_seconds_to_timest(parse(result_start)+parse(leng))
